@@ -8,20 +8,22 @@
 
 /* Begin PBXBuildFile section */
 		FAA41081247EAAA30039C4D9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA41080247EAAA30039C4D9 /* AppDelegate.swift */; };
-		FAA41085247EAAA30039C4D9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA41084247EAAA30039C4D9 /* ViewController.swift */; };
+		FAA41085247EAAA30039C4D9 /* FilmsGalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA41084247EAAA30039C4D9 /* FilmsGalleryViewController.swift */; };
 		FAA4108A247EAAA40039C4D9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FAA41089247EAAA40039C4D9 /* Assets.xcassets */; };
 		FAA4108D247EAAA40039C4D9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAA4108B247EAAA40039C4D9 /* LaunchScreen.storyboard */; };
 		FAA41095247EAEC10039C4D9 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA41094247EAEC10039C4D9 /* NavigationController.swift */; };
+		FAA41098247F03BF0039C4D9 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA41097247F03BF0039C4D9 /* Movie.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		FAA4107D247EAAA30039C4D9 /* CinemaApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CinemaApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAA41080247EAAA30039C4D9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		FAA41084247EAAA30039C4D9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		FAA41084247EAAA30039C4D9 /* FilmsGalleryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilmsGalleryViewController.swift; sourceTree = "<group>"; };
 		FAA41089247EAAA40039C4D9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FAA4108C247EAAA40039C4D9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FAA4108E247EAAA40039C4D9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FAA41094247EAEC10039C4D9 /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
+		FAA41097247F03BF0039C4D9 /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,14 +56,23 @@
 		FAA4107F247EAAA30039C4D9 /* CinemaApp */ = {
 			isa = PBXGroup;
 			children = (
+				FAA41096247F03AC0039C4D9 /* Models */,
 				FAA41080247EAAA30039C4D9 /* AppDelegate.swift */,
 				FAA41094247EAEC10039C4D9 /* NavigationController.swift */,
-				FAA41084247EAAA30039C4D9 /* ViewController.swift */,
+				FAA41084247EAAA30039C4D9 /* FilmsGalleryViewController.swift */,
 				FAA41089247EAAA40039C4D9 /* Assets.xcassets */,
 				FAA4108B247EAAA40039C4D9 /* LaunchScreen.storyboard */,
 				FAA4108E247EAAA40039C4D9 /* Info.plist */,
 			);
 			path = CinemaApp;
+			sourceTree = "<group>";
+		};
+		FAA41096247F03AC0039C4D9 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				FAA41097247F03BF0039C4D9 /* Movie.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -134,8 +145,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FAA41085247EAAA30039C4D9 /* ViewController.swift in Sources */,
+				FAA41085247EAAA30039C4D9 /* FilmsGalleryViewController.swift in Sources */,
 				FAA41095247EAEC10039C4D9 /* NavigationController.swift in Sources */,
+				FAA41098247F03BF0039C4D9 /* Movie.swift in Sources */,
 				FAA41081247EAAA30039C4D9 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
