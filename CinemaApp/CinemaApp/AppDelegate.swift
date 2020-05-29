@@ -12,11 +12,21 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    
+    var store: AppStore = AppStore()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
+        store.movies
+            .accept(MovieService().movies())
+        
+        // build controller
+        let controller = FilmsGalleryViewController.init(movies: store.movies)
+        //
+        
         window = UIWindow()
-        window?.rootViewController = NavigationController(rootViewController: ViewController)
+        window?.rootViewController = NavigationController(rootViewController: AnimatorViewController())
+        window?.makeKeyAndVisible()
         
         return true
     }
