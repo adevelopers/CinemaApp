@@ -20,6 +20,7 @@
 		FAA410A0247F14D70039C4D9 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA4109F247F14D70039C4D9 /* Colors.swift */; };
 		FAA410A2247F22AA0039C4D9 /* MovieInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA410A1247F22AA0039C4D9 /* MovieInfoView.swift */; };
 		FAA410A52481B2500039C4D9 /* AnimatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA410A42481B2500039C4D9 /* AnimatorViewController.swift */; };
+		FAD819BD2482F006003E811A /* Animator2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD819BC2482F006003E811A /* Animator2ViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		FAA4109F247F14D70039C4D9 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		FAA410A1247F22AA0039C4D9 /* MovieInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieInfoView.swift; sourceTree = "<group>"; };
 		FAA410A42481B2500039C4D9 /* AnimatorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatorViewController.swift; sourceTree = "<group>"; };
+		FAD819BC2482F006003E811A /* Animator2ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animator2ViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +98,7 @@
 				FAA4109D247F0FF30039C4D9 /* MovieService.swift */,
 				FAA4109F247F14D70039C4D9 /* Colors.swift */,
 				FAA410A42481B2500039C4D9 /* AnimatorViewController.swift */,
+				FAD819BC2482F006003E811A /* Animator2ViewController.swift */,
 			);
 			path = CinemaApp;
 			sourceTree = "<group>";
@@ -244,6 +247,7 @@
 				FAA4109A247F068B0039C4D9 /* Variable.swift in Sources */,
 				FAA41095247EAEC10039C4D9 /* NavigationController.swift in Sources */,
 				FAA4109C247F06C60039C4D9 /* AppStore.swift in Sources */,
+				FAD819BD2482F006003E811A /* Animator2ViewController.swift in Sources */,
 				FAA410A52481B2500039C4D9 /* AnimatorViewController.swift in Sources */,
 				FAA41098247F03BF0039C4D9 /* Movie.swift in Sources */,
 				FAA410A2247F22AA0039C4D9 /* MovieInfoView.swift in Sources */,

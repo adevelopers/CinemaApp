@@ -21,11 +21,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             .accept(MovieService().movies())
         
         // build controller
-        let controller = FilmsGalleryViewController.init(movies: store.movies)
+//        let controller = FilmsGalleryViewController.init(movies: store.movies)
         //
         
         window = UIWindow()
-        window?.rootViewController = NavigationController(rootViewController: AnimatorViewController())
+        window?.rootViewController = NavigationController(rootViewController: Animator2ViewController())
         window?.makeKeyAndVisible()
         
         return true

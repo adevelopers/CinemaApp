@@ -13,7 +13,7 @@ import SnapKit
 final class AnimatorViewController: UIViewController {
     
     private lazy var animator: UIViewPropertyAnimator = {
-        UIViewPropertyAnimator(duration: 2, curve: .linear, animations: nil)
+        UIViewPropertyAnimator(duration: 2, curve: .easeOut, animations: nil)
     }()
     
     private lazy var sq1: UIView = {
@@ -55,16 +55,25 @@ final class AnimatorViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        animator.isReversed = true
+        animator.isReversed = false
         animator.addAnimations {
             self.sq1.backgroundColor = .red
         }
         animator.addAnimations {
-            self.sq1.transform = CGAffineTransform.init(translationX: 200, y: 0)
+            self.sq1.transform = CGAffineTransform.init(translationX: 600, y: 0)
+            
         }
+        animator.addAnimations {
+            self.sq1.layer.cornerRadius = 25
+            self.sq1.transform = CGAffineTransform.init(scaleX: 2, y: 2)
+        }
+        
+        self.sq1.transform = .identity
         
         animator.addCompletion(endAnimation)
         
+        animator.startAnimation()
+        animator.pauseAnimation()
     }
     
     private func setupUI() {
@@ -98,11 +107,8 @@ final class AnimatorViewController: UIViewController {
     @objc
     private func didTap() {
         print("didTap")
-        animator.startAnimation()
-        animator.pauseAnimation()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            self.animator.fractionComplete = 0.5
-        }
+        animator.isReversed = true
+        
     }
     
     private func endAnimation(_ position: UIViewAnimatingPosition) {
