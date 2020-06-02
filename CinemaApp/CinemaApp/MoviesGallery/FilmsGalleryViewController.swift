@@ -10,81 +10,13 @@ import UIKit
 import SnapKit
 
 
-final class GalleryCellView: UIView {
-    
-    private lazy var screenView: UIImageView = {
-        let imageView = UIImageView() // 270x160
-        imageView.layer.cornerRadius = 12
-        imageView.clipsToBounds = true
-        return imageView
-    }()
-    
-    private lazy var movieContentView: MovieInfoView = {
-        let view = MovieInfoView()
-        view.backgroundColor = .white
-        view.layer.cornerRadius = 12
-        return view
-    }()
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupUI()
-        setupConstraints()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-    }
-    
-    private func setupUI() {
-        backgroundColor = .white
-        layer.cornerRadius = 12
-        
-        addSubview(movieContentView)
-        addSubview(screenView)
-        
-    }
-    private func setupConstraints() {
-        
-        screenView.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(90)
-            $0.centerX.equalToSuperview()
-            $0.width.equalTo(270)
-            $0.height.equalTo(160)
-        }
-        
-        movieContentView.snp.makeConstraints {
-            $0.top.equalTo(screenView.snp.bottom).offset(-32)
-            $0.centerX.equalToSuperview()
-            $0.width.equalTo(270)
-            $0.bottom.equalToSuperview()
-        }
-    }
-    
-    func render(_ movie: Movie) {
-        if let imageName = movie.screenshots.first {
-            screenView.image = UIImage(imageLiteralResourceName: imageName)
-        }
-        
-        movieContentView.render(movie)
-    }
-}
-
 class FilmsGalleryViewController: UIViewController {
     
     private weak var movies: Variable<[Movie]>!
-    
-    private lazy var cellView: GalleryCellView = {
-        let view = GalleryCellView()
-        
-        return view
-    }()
-    
     private var cells: Variable<[GalleryCellView]> = .init([])
+    
+    private var currentCellView: GalleryCellView?
+    let duratioin: TimeInterval = 0.3
     
     private lazy var paginator: UIPageControl = {
         let paginator = UIPageControl()
@@ -102,10 +34,18 @@ class FilmsGalleryViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func loadView() {
+        super.loadView()
+        
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.setNavigationBarHidden(true, animated: true)
         view.backgroundColor = .bg
+        
+        view.addSubview(paginator)
         
         cells.accept(movies.value.map { _ in GalleryCellView() })
         
@@ -119,11 +59,11 @@ class FilmsGalleryViewController: UIViewController {
                 cellView.snp.makeConstraints {
                     $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
                     $0.centerX.equalToSuperview()
-                    $0.bottom.equalToSuperview().offset(-200)
+                    $0.bottom.equalToSuperview().offset(-160)
                 }
+                cellView.backgroundColor = .red
+                
         }
-        
-        view.addSubview(paginator)
         
         
         paginator.snp.makeConstraints {
@@ -147,7 +87,13 @@ class FilmsGalleryViewController: UIViewController {
         pan.minimumNumberOfTouches = 1
         view.addGestureRecognizer(pan)
         
-        setupAnimator()
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTap)))
+    }
+    
+    @objc
+    private func didTap() {
+        print("did tap")
+        navigationController?.pushViewController(CinemaHallViewController(), animated: true)
     }
     
     private var semaphore = 0
@@ -174,34 +120,99 @@ class FilmsGalleryViewController: UIViewController {
         print("fraction: ", propertyAnimator.fractionComplete)
     }
     
+    
+    private var runningAnimators: [UIViewPropertyAnimator] = []
+    private var animationProgress: CGFloat = 0
+    private let distance: CGFloat = 400
+    
     @objc
     private func panLeft(_ pan: UIPanGestureRecognizer) {
-        let point = pan.location(in: view)
-//        print("point -> ", point)
+        print("count: \(runningAnimators.count)")
         
-        if point.x < view.center.x - 100 {
-            pan.state = .cancelled
-            dumpAnimatorState()
+        switch pan.state {
+        case .began:
+            
+            currentCellView = cells.value.first
+            makeDownAnimatorIfNeeded(cellState: currentCellView!.upDnState.opposite)
+            runningAnimators.forEach { animator in
+                animator.pauseAnimation()
+                animationProgress = animator.fractionComplete
+            }
+        case .changed:
+            guard !runningAnimators.isEmpty else { return }
+            let translation = pan.translation(in: currentCellView)
+            var fraction = -translation.y / distance
+            
+            if (currentCellView?.upDnState == .up) { fraction *= -1 }
+            if (runningAnimators[0].isReversed) { fraction *= -1 }
+            
+            runningAnimators.forEach { animator in
+                animator.fractionComplete = fraction + animationProgress
+            }
+        case .ended:
+            let yVelocity = pan.velocity(in: pan.view).y
+            let shouldClose = yVelocity > 0
             
             
-            if semaphore == 0 {
-                print("Start animation")
-                semaphore += 1
-                var currentPage = paginator.currentPage
-                currentPage += 1
-                
-                paginator.currentPage = currentPage % paginator.numberOfPages
-//                propertyAnimator.fractionComplete = 0
-                propertyAnimator.startAnimation()
+            runningAnimators.forEach { animator in
+                animator.continueAnimation(withTimingParameters: nil, durationFactor: 1)
             }
             
-        } else {
+            if runningAnimators.isEmpty == false {
+                
+                switch currentCellView?.upDnState {
+                case .up:
+                    if !shouldClose && !runningAnimators[0].isReversed { runningAnimators.forEach { $0.isReversed = !$0.isReversed } }
+                    if shouldClose && runningAnimators[0].isReversed { runningAnimators.forEach { $0.isReversed = !$0.isReversed } }
+                case .dn:
+                    if shouldClose && !runningAnimators[0].isReversed { runningAnimators.forEach { $0.isReversed = !$0.isReversed } }
+                    if !shouldClose && runningAnimators[0].isReversed { runningAnimators.forEach { $0.isReversed = !$0.isReversed } }
+                case .none:
+                    ()
+                }
+            }
             
-
-//            propertyAnimator.fractionComplete += 0.05
-//            cellView.frame.origin.x = point.x
+            runningAnimators.removeAll()
+        default:
+            ()
         }
         
+        
+    }
+    
+    private func makeDownAnimatorIfNeeded(cellState: CellState)  {
+        
+        guard runningAnimators.isEmpty else {
+            return
+        }
+        
+        let downAnimator = UIViewPropertyAnimator(duration: duratioin, curve: .easeOut, animations: nil)
+        
+        downAnimator.addAnimations {
+            self.currentCellView?.backgroundColor = .red
+            switch self.currentCellView?.upDnState {
+            case .dn:
+                self.currentCellView?.snp.updateConstraints {
+                    $0.bottom.equalToSuperview().offset(-160)
+                }
+            case .up:
+                self.currentCellView?.snp.updateConstraints {
+                    $0.bottom.equalToSuperview().offset(100)
+                }
+            default:
+                ()
+            }
+            
+            self.view.layoutIfNeeded()
+        }
+        
+        downAnimator.addCompletion({ _ in
+            self.currentCellView!.upDnState = (self.currentCellView!.upDnState == .up) ? .dn : .up
+            self.runningAnimators.removeAll()
+        })
+        
+        downAnimator.startAnimation()
+        runningAnimators.append(downAnimator)
     }
     
 

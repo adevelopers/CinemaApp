@@ -21,6 +21,11 @@
 		FAA410A2247F22AA0039C4D9 /* MovieInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA410A1247F22AA0039C4D9 /* MovieInfoView.swift */; };
 		FAA410A52481B2500039C4D9 /* AnimatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA410A42481B2500039C4D9 /* AnimatorViewController.swift */; };
 		FAD819BD2482F006003E811A /* Animator2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD819BC2482F006003E811A /* Animator2ViewController.swift */; };
+		FAD819BF2483EDC8003E811A /* CinemaHallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD819BE2483EDC8003E811A /* CinemaHallViewController.swift */; };
+		FAD819C1248557A0003E811A /* CinemaHallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD819C0248557A0003E811A /* CinemaHallView.swift */; };
+		FAD819C42485AC58003E811A /* SeatButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD819C32485AC58003E811A /* SeatButton.swift */; };
+		FAD819C62485B19D003E811A /* MoviesGallery.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FAD819C52485B19D003E811A /* MoviesGallery.xcassets */; };
+		FAD819C82485B2FB003E811A /* GalleryCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD819C72485B2FB003E811A /* GalleryCellView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +47,11 @@
 		FAA410A1247F22AA0039C4D9 /* MovieInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieInfoView.swift; sourceTree = "<group>"; };
 		FAA410A42481B2500039C4D9 /* AnimatorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatorViewController.swift; sourceTree = "<group>"; };
 		FAD819BC2482F006003E811A /* Animator2ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animator2ViewController.swift; sourceTree = "<group>"; };
+		FAD819BE2483EDC8003E811A /* CinemaHallViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CinemaHallViewController.swift; sourceTree = "<group>"; };
+		FAD819C0248557A0003E811A /* CinemaHallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CinemaHallView.swift; sourceTree = "<group>"; };
+		FAD819C32485AC58003E811A /* SeatButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatButton.swift; sourceTree = "<group>"; };
+		FAD819C52485B19D003E811A /* MoviesGallery.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = MoviesGallery.xcassets; sourceTree = "<group>"; };
+		FAD819C72485B2FB003E811A /* GalleryCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryCellView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +96,7 @@
 		FAA4107F247EAAA30039C4D9 /* CinemaApp */ = {
 			isa = PBXGroup;
 			children = (
+				FAD819C22485AA7B003E811A /* 3 */,
 				FAA410A32481B21E0039C4D9 /* MoviesGallery */,
 				FAA41096247F03AC0039C4D9 /* Models */,
 				FAA41080247EAAA30039C4D9 /* AppDelegate.swift */,
@@ -99,6 +110,9 @@
 				FAA4109F247F14D70039C4D9 /* Colors.swift */,
 				FAA410A42481B2500039C4D9 /* AnimatorViewController.swift */,
 				FAD819BC2482F006003E811A /* Animator2ViewController.swift */,
+				FAD819BE2483EDC8003E811A /* CinemaHallViewController.swift */,
+				FAD819C0248557A0003E811A /* CinemaHallView.swift */,
+				FAD819C32485AC58003E811A /* SeatButton.swift */,
 			);
 			path = CinemaApp;
 			sourceTree = "<group>";
@@ -116,8 +130,17 @@
 			children = (
 				FAA410A1247F22AA0039C4D9 /* MovieInfoView.swift */,
 				FAA41084247EAAA30039C4D9 /* FilmsGalleryViewController.swift */,
+				FAD819C52485B19D003E811A /* MoviesGallery.xcassets */,
+				FAD819C72485B2FB003E811A /* GalleryCellView.swift */,
 			);
 			path = MoviesGallery;
+			sourceTree = "<group>";
+		};
+		FAD819C22485AA7B003E811A /* 3 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = 3;
 			sourceTree = "<group>";
 		};
 		FF4CCFE3C2C770748CCD375F /* Frameworks */ = {
@@ -190,6 +213,7 @@
 			files = (
 				FAA4108D247EAAA40039C4D9 /* LaunchScreen.storyboard in Resources */,
 				FAA4108A247EAAA40039C4D9 /* Assets.xcassets in Resources */,
+				FAD819C62485B19D003E811A /* MoviesGallery.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -244,10 +268,14 @@
 			files = (
 				FAA41085247EAAA30039C4D9 /* FilmsGalleryViewController.swift in Sources */,
 				FAA410A0247F14D70039C4D9 /* Colors.swift in Sources */,
+				FAD819C82485B2FB003E811A /* GalleryCellView.swift in Sources */,
+				FAD819C1248557A0003E811A /* CinemaHallView.swift in Sources */,
+				FAD819BF2483EDC8003E811A /* CinemaHallViewController.swift in Sources */,
 				FAA4109A247F068B0039C4D9 /* Variable.swift in Sources */,
 				FAA41095247EAEC10039C4D9 /* NavigationController.swift in Sources */,
 				FAA4109C247F06C60039C4D9 /* AppStore.swift in Sources */,
 				FAD819BD2482F006003E811A /* Animator2ViewController.swift in Sources */,
+				FAD819C42485AC58003E811A /* SeatButton.swift in Sources */,
 				FAA410A52481B2500039C4D9 /* AnimatorViewController.swift in Sources */,
 				FAA41098247F03BF0039C4D9 /* Movie.swift in Sources */,
 				FAA410A2247F22AA0039C4D9 /* MovieInfoView.swift in Sources */,

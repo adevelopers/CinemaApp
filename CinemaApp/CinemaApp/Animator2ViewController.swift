@@ -171,7 +171,7 @@ final class Animator2ViewController: UIViewController {
             animator.fractionComplete = fraction + animationProgress
         case .ended:
             let shouldClose = pan.velocity(in: curtainView).y > 0
-             
+             CATransform3D()
             
 //            if yVelocity == 0 {
 //                animator.continueAnimation(withTimingParameters: nil, durationFactor: 0)

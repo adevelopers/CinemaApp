@@ -52,8 +52,11 @@ final class MovieInfoView: UIView {
         label.textColor = .black
         return label
     }()
-
     
+    private lazy var slideDownIcon: UIImageView = {
+        UIImageView(image: UIImage(imageLiteralResourceName: "slideDownIcon"))
+    }()
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
@@ -74,6 +77,7 @@ final class MovieInfoView: UIView {
         addSubview(noteLabel)
         addSubview(typeLabel)
         addSubview(imdbLabel)
+        addSubview(slideDownIcon)
      
         setupShadow()
     }
@@ -113,7 +117,12 @@ final class MovieInfoView: UIView {
         noteLabel.snp.makeConstraints {
             $0.top.equalTo(janrLabel.snp.bottom).offset(12)
             $0.left.right.equalToSuperview().inset(12)
-            $0.bottom.equalToSuperview().inset(12)
+            $0.height.equalTo(200)
+        }
+        
+        slideDownIcon.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.bottom.equalToSuperview().offset(-8)
         }
         
     }
