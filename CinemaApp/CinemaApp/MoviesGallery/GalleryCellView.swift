@@ -90,4 +90,25 @@ final class GalleryCellView: UIView {
         
         movieContentView.render(movie)
     }
+    
+    func animateDown() {
+        screenView.snp.updateConstraints {
+            $0.top.equalToSuperview().offset(20)
+        }
+        
+        movieContentView.snp.updateConstraints {
+            $0.top.equalTo(screenView.snp.bottom).offset(32)
+        }
+    }
+    
+    func animateUp() {
+        screenView.snp.updateConstraints {
+            $0.top.equalToSuperview().offset(90)
+        }
+        
+        movieContentView.snp.updateConstraints {
+            $0.top.equalTo(screenView.snp.bottom).offset(-32)
+        }
+    }
+    
 }

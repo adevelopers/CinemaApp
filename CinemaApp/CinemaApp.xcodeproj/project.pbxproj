@@ -26,6 +26,7 @@
 		FAD819C42485AC58003E811A /* SeatButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD819C32485AC58003E811A /* SeatButton.swift */; };
 		FAD819C62485B19D003E811A /* MoviesGallery.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FAD819C52485B19D003E811A /* MoviesGallery.xcassets */; };
 		FAD819C82485B2FB003E811A /* GalleryCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD819C72485B2FB003E811A /* GalleryCellView.swift */; };
+		FAD819CB2486785D003E811A /* ScreenshotCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD819CA2486785D003E811A /* ScreenshotCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +53,7 @@
 		FAD819C32485AC58003E811A /* SeatButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatButton.swift; sourceTree = "<group>"; };
 		FAD819C52485B19D003E811A /* MoviesGallery.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = MoviesGallery.xcassets; sourceTree = "<group>"; };
 		FAD819C72485B2FB003E811A /* GalleryCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryCellView.swift; sourceTree = "<group>"; };
+		FAD819CA2486785D003E811A /* ScreenshotCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,6 +130,7 @@
 		FAA410A32481B21E0039C4D9 /* MoviesGallery */ = {
 			isa = PBXGroup;
 			children = (
+				FAD819C924867739003E811A /* TopScreenCells */,
 				FAA410A1247F22AA0039C4D9 /* MovieInfoView.swift */,
 				FAA41084247EAAA30039C4D9 /* FilmsGalleryViewController.swift */,
 				FAD819C52485B19D003E811A /* MoviesGallery.xcassets */,
@@ -141,6 +144,14 @@
 			children = (
 			);
 			path = 3;
+			sourceTree = "<group>";
+		};
+		FAD819C924867739003E811A /* TopScreenCells */ = {
+			isa = PBXGroup;
+			children = (
+				FAD819CA2486785D003E811A /* ScreenshotCell.swift */,
+			);
+			path = TopScreenCells;
 			sourceTree = "<group>";
 		};
 		FF4CCFE3C2C770748CCD375F /* Frameworks */ = {
@@ -279,6 +290,7 @@
 				FAA410A52481B2500039C4D9 /* AnimatorViewController.swift in Sources */,
 				FAA41098247F03BF0039C4D9 /* Movie.swift in Sources */,
 				FAA410A2247F22AA0039C4D9 /* MovieInfoView.swift in Sources */,
+				FAD819CB2486785D003E811A /* ScreenshotCell.swift in Sources */,
 				FAA41081247EAAA30039C4D9 /* AppDelegate.swift in Sources */,
 				FAA4109E247F0FF30039C4D9 /* MovieService.swift in Sources */,
 			);

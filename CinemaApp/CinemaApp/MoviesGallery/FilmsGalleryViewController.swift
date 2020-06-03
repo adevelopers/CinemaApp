@@ -10,20 +10,131 @@ import UIKit
 import SnapKit
 
 
+class AnimationBlock {
+    private var next: AnimationBlock?
+    private var parent: AnimationBlock?
+    private var block: () -> Void
+    private var duration: TimeInterval
+    
+    init(_ duration: TimeInterval, _ block: @escaping ()->Void) {
+        self.duration = duration
+        self.block = block
+    }
+    
+    func run(){
+        UIView.animate(withDuration: duration,
+                       animations: block,
+                       completion: { _ in
+            self.next?.run()
+        })
+    }
+    
+    func add(duration: TimeInterval, _ block: @escaping () -> Void) -> AnimationBlock {
+        let animationBlock = AnimationBlock(duration, block)
+        animationBlock.parent = self
+        self.next = animationBlock
+        return animationBlock
+    }
+    
+    func root() -> AnimationBlock {
+        if let parent = parent {
+            return parent.root()
+        } else {
+            return self
+        }
+    }
+    
+}
+
+
+class PageNavigator: UIPageControl {
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        pageIndicatorTintColor = .note
+        currentPageIndicatorTintColor = .title
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+enum FilmsGalleryViewState {
+    case scene1
+    case scene2
+}
+
+
 class FilmsGalleryViewController: UIViewController {
     
     private weak var movies: Variable<[Movie]>!
     private var cells: Variable<[GalleryCellView]> = .init([])
     
     private var currentCellView: GalleryCellView?
-    let duratioin: TimeInterval = 0.3
     
-    private lazy var paginator: UIPageControl = {
-        let paginator = UIPageControl()
-        paginator.pageIndicatorTintColor = .note
-        paginator.currentPageIndicatorTintColor = .title
+    
+    private lazy var topScreensLayout: UICollectionViewFlowLayout = {
+        let layout = UICollectionViewFlowLayout()
+        layout.itemSize = CGSize(width: 270, height: 160)
+        layout.scrollDirection = .horizontal
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 53, bottom: 0, right: 0)
+        return layout
+    }()
+    
+    private lazy var topScreensSlider: UICollectionView = {
+        let view = UICollectionView.init(frame: .zero, collectionViewLayout: topScreensLayout)
+        view.register(ScreenshotCell.self, forCellWithReuseIdentifier: ScreenshotCell.reusaId)
+//        view.setCollectionViewLayout(topScreensLayout, animated: true)
+        view.dataSource = self
+        view.backgroundColor = .clear
+        view.alpha = 0
+        return view
+    }()
+    
+    let duration: TimeInterval = 0.3
+    
+    private var viewState: FilmsGalleryViewState = .scene1 {
+        didSet {
+            viewStateDidSet()
+        }
+    }
+    
+    private func viewStateDidSet() {
+        
+        switch self.viewState {
+        case .scene1:
+            AnimationBlock(0.3) {
+                self.topScreensSlider.alpha = 0
+            }.add(duration: 1) {
+                self.currentCellView?.screenView.isHidden = false
+                self.paginator.alpha = 1
+                self.topPaginator.alpha = 0
+            }.root()
+            .run()
+        case .scene2:
+            AnimationBlock(1) {
+                self.topScreensSlider.alpha = 1
+                self.paginator.alpha = 0
+                self.topPaginator.alpha = 1
+            }.add(duration: 0){
+                self.currentCellView?.screenView.isHidden = true
+            }.root().run()
+        }
+        
+    }
+    
+    
+    private lazy var paginator: PageNavigator = {
+        let paginator = PageNavigator()
         return paginator
     }()
+    
+    private lazy var topPaginator: PageNavigator = {
+        let paginator = PageNavigator()
+        return paginator
+    }()
+    
+    
     
     init(movies: Variable<[Movie]>) {
         self.movies = movies
@@ -45,7 +156,10 @@ class FilmsGalleryViewController: UIViewController {
         navigationController?.setNavigationBarHidden(true, animated: true)
         view.backgroundColor = .bg
         
+        view.addSubview(topPaginator)
         view.addSubview(paginator)
+        
+        view.addSubview(topScreensSlider)
         
         cells.accept(movies.value.map { _ in GalleryCellView() })
         
@@ -65,17 +179,30 @@ class FilmsGalleryViewController: UIViewController {
                 
         }
         
+        topPaginator.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(197)
+            $0.centerX.equalToSuperview()
+        }
         
         paginator.snp.makeConstraints {
             $0.bottom.equalToSuperview().offset(-100)
             $0.centerX.equalToSuperview()
         }
         
+        topScreensSlider.snp.makeConstraints {
+            $0.bottom.equalTo(topPaginator.snp.top).offset(3)
+            $0.left.right.equalToSuperview()
+            $0.height.equalTo(160)
+        }
+        
         paginator.currentPage = 1
         paginator.numberOfPages = movies.value.count
         
+        topPaginator.currentPage = 1
+        topPaginator.numberOfPages = 6
+        
         cells.subscribe { items in
-            print("Кол-во: ", items.count)
+//            print("Кол-во: ", items.count)
         }
         
         zip(movies.value, cells.value)
@@ -88,6 +215,29 @@ class FilmsGalleryViewController: UIViewController {
         view.addGestureRecognizer(pan)
         
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTap)))
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+//        AnimationBlock(1) {
+//            print("1")
+//            self.cells.value[0].alpha = 0
+//
+//            }.add(duration: 1)  {
+//                print("2")
+//            self.topPaginator.alpha = 0
+//        }.add(duration: 1) {
+//            print("3")
+//            self.paginator.alpha = 0
+//        }.add(duration: 1) {
+//            print("4")
+//            self.cells.value[1].alpha = 0
+//        }.add(duration: 2) {
+//            self.cells.value[2].alpha = 0
+//        }
+//        .root()
+//        .run()
     }
     
     @objc
@@ -106,18 +256,13 @@ class FilmsGalleryViewController: UIViewController {
         propertyAnimator.addCompletion(didSlideEndAnimation)
     }
     
-    private func dumpAnimatorState() {
-        switch propertyAnimator.state  {
-        case .active:
-            print("State active")
-        case .inactive:
-            print("State inactive")
-        case .stopped:
-            print("State stopped")
-        @unknown default:
-            fatalError()
+    
+    
+    private func hideOtherCells() {
+        cells.value.forEach {
+            $0.isHidden = true
         }
-        print("fraction: ", propertyAnimator.fractionComplete)
+        currentCellView?.isHidden = false
     }
     
     
@@ -127,7 +272,7 @@ class FilmsGalleryViewController: UIViewController {
     
     @objc
     private func panLeft(_ pan: UIPanGestureRecognizer) {
-        print("count: \(runningAnimators.count)")
+//        print("count: \(runningAnimators.count)")
         
         switch pan.state {
         case .began:
@@ -152,7 +297,6 @@ class FilmsGalleryViewController: UIViewController {
         case .ended:
             let yVelocity = pan.velocity(in: pan.view).y
             let shouldClose = yVelocity > 0
-            
             
             runningAnimators.forEach { animator in
                 animator.continueAnimation(withTimingParameters: nil, durationFactor: 1)
@@ -186,16 +330,20 @@ class FilmsGalleryViewController: UIViewController {
             return
         }
         
-        let downAnimator = UIViewPropertyAnimator(duration: duratioin, curve: .easeOut, animations: nil)
+        let downAnimator = UIViewPropertyAnimator(duration: duration, curve: .easeOut, animations: nil)
         
         downAnimator.addAnimations {
-            self.currentCellView?.backgroundColor = .red
             switch self.currentCellView?.upDnState {
             case .dn:
+                self.viewState = .scene1
+                self.currentCellView?.animateUp()
                 self.currentCellView?.snp.updateConstraints {
                     $0.bottom.equalToSuperview().offset(-160)
                 }
             case .up:
+                self.viewState = .scene2
+                self.hideOtherCells()
+                self.currentCellView?.animateDown()
                 self.currentCellView?.snp.updateConstraints {
                     $0.bottom.equalToSuperview().offset(100)
                 }
@@ -218,11 +366,11 @@ class FilmsGalleryViewController: UIViewController {
 
     
     private func slideAnimating() {
-        print("slide animating")
+        
         guard let cellView = cells.value.first else {
             return
         }
-        print("animating tag: ", cellView.tag)
+        
         
         cellView.frame.origin.x -= self.view.bounds.width
         
@@ -252,6 +400,34 @@ class FilmsGalleryViewController: UIViewController {
             fatalError()
         }
         print("End animatiion")
+    }
+    
+}
+
+
+extension FilmsGalleryViewController: UICollectionViewDataSource {
+    
+    private func getModel() -> Movie? {
+//        guard let tag = currentCellView?.tag else { return nil }
+//        let modelIndex = tag - 1
+        return  movies.value.first
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        guard let movie = getModel() else { return 0 }
+        return movie.screenshots.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ScreenshotCell.reusaId, for: indexPath) as? ScreenshotCell,
+            let imageName = getModel()?.screenshots[indexPath.row]
+        else {
+            return UICollectionViewCell()
+        }
+        
+        cell.imageView.image = UIImage(imageLiteralResourceName: imageName)
+        return cell
     }
     
 }

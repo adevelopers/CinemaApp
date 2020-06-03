@@ -28,11 +28,12 @@ final class MovieInfoView: UIView {
         return label
     }()
     
-    private lazy var noteLabel: UILabel = {
-        let label = UILabel()
+    private lazy var noteLabel: UITextView = {
+        let label = UITextView()
         label.font = UIFont(name: "Ruda-Regular", size: 12)
         label.textColor = .note
-        label.numberOfLines = 0
+//        label.numberOfLines = 0
+        label.clipsToBounds = true
         return label
     }()
     
@@ -69,6 +70,7 @@ final class MovieInfoView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+//        noteLabel.sizeToFit()
     }
     
     private func setupUI() {
@@ -117,7 +119,7 @@ final class MovieInfoView: UIView {
         noteLabel.snp.makeConstraints {
             $0.top.equalTo(janrLabel.snp.bottom).offset(12)
             $0.left.right.equalToSuperview().inset(12)
-            $0.height.equalTo(200)
+            $0.bottom.equalToSuperview().inset(14)
         }
         
         slideDownIcon.snp.makeConstraints {
@@ -131,5 +133,22 @@ final class MovieInfoView: UIView {
         titleLabel.text = movie.title
         janrLabel.text = movie.janrs.joined(separator: ", ")
         noteLabel.text = movie.note
+    }
+    
+}
+
+
+extension MovieInfoView {
+    
+    func animateDown() {
+//        noteLabel.snp.updateConstraints {
+//
+//        }
+    }
+    
+    func animateUp() {
+//        noteLabel.snp.updateConstraints {
+//
+//        }
     }
 }

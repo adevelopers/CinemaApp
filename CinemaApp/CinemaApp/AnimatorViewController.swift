@@ -129,7 +129,6 @@ final class AnimatorViewController: UIViewController {
     
     @objc
     private func didChageSliderPosition() {
-        print(slider.value)
         animator.fractionComplete = CGFloat(slider.value)/100
     }
     
