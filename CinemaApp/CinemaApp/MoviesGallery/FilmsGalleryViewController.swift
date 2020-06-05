@@ -10,9 +10,9 @@ import UIKit
 import SnapKit
 
 
-class AnimationBlock {
-    private var next: AnimationBlock?
-    private var parent: AnimationBlock?
+final class AnimatedChain {
+    private var next: AnimatedChain?
+    private var parent: AnimatedChain?
     private var block: () -> Void
     private var duration: TimeInterval
     
@@ -24,26 +24,27 @@ class AnimationBlock {
     func run(){
         UIView.animate(withDuration: duration,
                        animations: block,
-                       completion: { _ in
-            self.next?.run()
-        })
+                       completion: runNext)
     }
     
-    func add(duration: TimeInterval, _ block: @escaping () -> Void) -> AnimationBlock {
-        let animationBlock = AnimationBlock(duration, block)
+    private func runNext(_ isOK: Bool) {
+        next?.run()
+    }
+    
+    func then(duration: TimeInterval, _ block: @escaping () -> Void) -> AnimatedChain {
+        let animationBlock = AnimatedChain(duration, block)
         animationBlock.parent = self
         self.next = animationBlock
         return animationBlock
     }
     
-    func root() -> AnimationBlock {
+    func fromFirst() -> AnimatedChain {
         if let parent = parent {
-            return parent.root()
+            return parent.fromFirst()
         } else {
             return self
         }
     }
-    
 }
 
 
@@ -103,25 +104,43 @@ class FilmsGalleryViewController: UIViewController {
         
         switch self.viewState {
         case .scene1:
-            AnimationBlock(0.3) {
+            AnimatedChain(0.3) {
                 self.topScreensSlider.alpha = 0
-            }.add(duration: 1) {
+            }.then(duration: 1) {
                 self.currentCellView?.screenView.isHidden = false
                 self.paginator.alpha = 1
                 self.topPaginator.alpha = 0
-            }.root()
+            }
+            .fromFirst()
             .run()
         case .scene2:
-            AnimationBlock(1) {
+            AnimatedChain(1) {
                 self.topScreensSlider.alpha = 1
                 self.paginator.alpha = 0
                 self.topPaginator.alpha = 1
-            }.add(duration: 0){
+            }.then(duration: 0){
                 self.currentCellView?.screenView.isHidden = true
-            }.root().run()
+            }
+            .fromFirst()
+            .run()
         }
         
+        AnimatedChain(0.3, scene1)
+            .then(duration: 0.5, scene2)
+            .then(duration: 0.5, scene3)
+            .then(duration: 0.5, scene4)
+            .then(duration: 0.2, finalScene)
+            .fromFirst()
+            .run()
+        
     }
+    
+    func scene1(){}
+    func scene2(){}
+    func scene3(){}
+    func scene4(){}
+    func finalScene(){}
+    
     
     
     private lazy var paginator: PageNavigator = {

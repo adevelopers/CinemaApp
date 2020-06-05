@@ -61,3 +61,23 @@ final class SeatButton: UIButton {
         }
     }
 }
+
+
+protocol Copying {
+    init(_ prototype: Self)
+}
+
+extension Copying {
+    func copy() -> Self {
+        return type(of: self).init(self)
+    }
+}
+
+extension SeatButton: Copying {
+    convenience init(_ prototype: SeatButton) {
+        self.init(frame: .zero)
+        titleLabel?.text = prototype.titleLabel?.text
+    }
+    
+    
+}
