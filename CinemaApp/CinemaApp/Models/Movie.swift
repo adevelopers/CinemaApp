@@ -6,8 +6,6 @@
 //  Copyright © 2020 Kirill Khudiakov. All rights reserved.
 //
 
-import Foundation
-
 
 struct Movie {
     let screenshots: [String]
@@ -16,13 +14,3 @@ struct Movie {
     let type: String
     let note: String
 }
-
-
-struct Ticket {
-    let date: String
-    let time: String
-    let seats: String
-    let title: String
-    let total: String
-}
-

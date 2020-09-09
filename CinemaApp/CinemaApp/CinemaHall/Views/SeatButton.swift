@@ -79,5 +79,4 @@ extension SeatButton: Copying {
         titleLabel?.text = prototype.titleLabel?.text
     }
     
-    
 }
