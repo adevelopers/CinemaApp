@@ -9,32 +9,6 @@ import UIKit
 import SnapKit
 
 
-
-class CinameButton: UIButton {
-    
-    init(title: String) {
-        super.init(frame: .zero)
-        setTitle(title, for: .normal)
-        setTitleColor(.white, for: .normal)
-        backgroundColor = .title
-        layer.cornerRadius = 12
-        layer.shadowColor = UIColor.title.cgColor
-        layer.shadowRadius = 12
-        layer.shadowOpacity = 1
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        let bounds = layer.bounds
-        layer.shadowPath = UIBezierPath(rect: CGRect(x: 8, y: 8, width: bounds.width - 16, height: bounds.height)).cgPath
-    }
-}
-
-
 final class CinemaHallViewController: UIViewController {
     
     private lazy var screenView: UIImageView = {
@@ -104,8 +78,6 @@ final class CinemaHallViewController: UIViewController {
             $0.width.equalTo(hall.snp.width)
             $0.height.equalTo(45)
         }
-        
-        
     }
     
     var animationDirection: Bool = true

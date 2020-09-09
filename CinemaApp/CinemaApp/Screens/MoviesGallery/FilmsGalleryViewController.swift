@@ -10,56 +10,6 @@ import UIKit
 import SnapKit
 
 
-final class AnimatedChain {
-    private var next: AnimatedChain?
-    private var parent: AnimatedChain?
-    private var block: () -> Void
-    private var duration: TimeInterval
-    
-    init(_ duration: TimeInterval, _ block: @escaping ()->Void) {
-        self.duration = duration
-        self.block = block
-    }
-    
-    func run(){
-        UIView.animate(withDuration: duration,
-                       animations: block,
-                       completion: runNext)
-    }
-    
-    private func runNext(_ isOK: Bool) {
-        next?.run()
-    }
-    
-    func then(duration: TimeInterval, _ block: @escaping () -> Void) -> AnimatedChain {
-        let animationBlock = AnimatedChain(duration, block)
-        animationBlock.parent = self
-        self.next = animationBlock
-        return animationBlock
-    }
-    
-    func fromFirst() -> AnimatedChain {
-        if let parent = parent {
-            return parent.fromFirst()
-        } else {
-            return self
-        }
-    }
-}
-
-
-class PageNavigator: UIPageControl {
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        pageIndicatorTintColor = .note
-        currentPageIndicatorTintColor = .title
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-}
-
 enum FilmsGalleryViewState {
     case scene1
     case scene2
@@ -89,6 +39,7 @@ class FilmsGalleryViewController: UIViewController {
         view.dataSource = self
         view.backgroundColor = .clear
         view.alpha = 0
+        view.showsHorizontalScrollIndicator = false
         return view
     }()
     

@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		C004C8739604112DBE289906 /* Pods_CinemaApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79437FB9063898867F24D68B /* Pods_CinemaApp.framework */; };
 		FA7EAE9B25094E1000963090 /* Ticket.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7EAE9A25094E1000963090 /* Ticket.swift */; };
+		FA7EAEA12509508500963090 /* OrderTicketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7EAEA02509508500963090 /* OrderTicketViewController.swift */; };
+		FA7EAEA3250951A200963090 /* CinemaButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7EAEA2250951A200963090 /* CinemaButton.swift */; };
+		FA7EAEA62509532500963090 /* AnimatedChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7EAEA52509532500963090 /* AnimatedChain.swift */; };
+		FA7EAEA82509545100963090 /* PageNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7EAEA72509545100963090 /* PageNavigator.swift */; };
 		FAA41081247EAAA30039C4D9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA41080247EAAA30039C4D9 /* AppDelegate.swift */; };
 		FAA41085247EAAA30039C4D9 /* FilmsGalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA41084247EAAA30039C4D9 /* FilmsGalleryViewController.swift */; };
 		FAA4108A247EAAA40039C4D9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FAA41089247EAAA40039C4D9 /* Assets.xcassets */; };
@@ -35,6 +39,10 @@
 		7F28A4416C17B0D4F040B144 /* Pods-CinemaApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CinemaApp.release.xcconfig"; path = "Target Support Files/Pods-CinemaApp/Pods-CinemaApp.release.xcconfig"; sourceTree = "<group>"; };
 		83E0132550B6C050CFF2E8CA /* Pods-CinemaApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CinemaApp.debug.xcconfig"; path = "Target Support Files/Pods-CinemaApp/Pods-CinemaApp.debug.xcconfig"; sourceTree = "<group>"; };
 		FA7EAE9A25094E1000963090 /* Ticket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ticket.swift; sourceTree = "<group>"; };
+		FA7EAEA02509508500963090 /* OrderTicketViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderTicketViewController.swift; sourceTree = "<group>"; };
+		FA7EAEA2250951A200963090 /* CinemaButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CinemaButton.swift; sourceTree = "<group>"; };
+		FA7EAEA52509532500963090 /* AnimatedChain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedChain.swift; sourceTree = "<group>"; };
+		FA7EAEA72509545100963090 /* PageNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageNavigator.swift; sourceTree = "<group>"; };
 		FAA4107D247EAAA30039C4D9 /* CinemaApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CinemaApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAA41080247EAAA30039C4D9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FAA41084247EAAA30039C4D9 /* FilmsGalleryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilmsGalleryViewController.swift; sourceTree = "<group>"; };
@@ -85,6 +93,7 @@
 				FAA41094247EAEC10039C4D9 /* NavigationController.swift */,
 				FAA41099247F068B0039C4D9 /* Variable.swift */,
 				FAA4109F247F14D70039C4D9 /* Colors.swift */,
+				FA7EAEA52509532500963090 /* AnimatedChain.swift */,
 			);
 			path = Support;
 			sourceTree = "<group>";
@@ -94,6 +103,36 @@
 			children = (
 				FAD819C0248557A0003E811A /* CinemaHallView.swift */,
 				FAD819C32485AC58003E811A /* SeatButton.swift */,
+				FA7EAEA2250951A200963090 /* CinemaButton.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		FA7EAE9E25094FA200963090 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				FA7EAE9F25094FCF00963090 /* OrderTicket */,
+				FAA410A32481B21E0039C4D9 /* MoviesGallery */,
+				FAD819C22485AA7B003E811A /* CinemaHall */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		FA7EAE9F25094FCF00963090 /* OrderTicket */ = {
+			isa = PBXGroup;
+			children = (
+				FA7EAEA02509508500963090 /* OrderTicketViewController.swift */,
+			);
+			path = OrderTicket;
+			sourceTree = "<group>";
+		};
+		FA7EAEA4250952F400963090 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				FAD819C72485B2FB003E811A /* GalleryCellView.swift */,
+				FAA410A1247F22AA0039C4D9 /* MovieInfoView.swift */,
+				FAD819C924867739003E811A /* TopScreenCells */,
+				FA7EAEA72509545100963090 /* PageNavigator.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -121,8 +160,7 @@
 			children = (
 				FAA41080247EAAA30039C4D9 /* AppDelegate.swift */,
 				FAA4109B247F06C60039C4D9 /* AppStore.swift */,
-				FAA410A32481B21E0039C4D9 /* MoviesGallery */,
-				FAD819C22485AA7B003E811A /* CinemaHall */,
+				FA7EAE9E25094FA200963090 /* Screens */,
 				FAA41096247F03AC0039C4D9 /* Models */,
 				FA7EAE9C25094E4900963090 /* Support */,
 				FAA41089247EAAA40039C4D9 /* Assets.xcassets */,
@@ -145,11 +183,9 @@
 		FAA410A32481B21E0039C4D9 /* MoviesGallery */ = {
 			isa = PBXGroup;
 			children = (
-				FAD819C924867739003E811A /* TopScreenCells */,
-				FAA410A1247F22AA0039C4D9 /* MovieInfoView.swift */,
+				FA7EAEA4250952F400963090 /* Views */,
 				FAA41084247EAAA30039C4D9 /* FilmsGalleryViewController.swift */,
 				FAD819C52485B19D003E811A /* MoviesGallery.xcassets */,
-				FAD819C72485B2FB003E811A /* GalleryCellView.swift */,
 			);
 			path = MoviesGallery;
 			sourceTree = "<group>";
@@ -302,16 +338,20 @@
 				FAD819C1248557A0003E811A /* CinemaHallView.swift in Sources */,
 				FAD819BF2483EDC8003E811A /* CinemaHallViewController.swift in Sources */,
 				FAA4109A247F068B0039C4D9 /* Variable.swift in Sources */,
+				FA7EAEA3250951A200963090 /* CinemaButton.swift in Sources */,
 				FAA41095247EAEC10039C4D9 /* NavigationController.swift in Sources */,
+				FA7EAEA62509532500963090 /* AnimatedChain.swift in Sources */,
 				FAA4109C247F06C60039C4D9 /* AppStore.swift in Sources */,
 				FAD819BD2482F006003E811A /* Animator2ViewController.swift in Sources */,
 				FAD819C42485AC58003E811A /* SeatButton.swift in Sources */,
 				FAA410A52481B2500039C4D9 /* AnimatorViewController.swift in Sources */,
 				FAA41098247F03BF0039C4D9 /* Movie.swift in Sources */,
 				FAA410A2247F22AA0039C4D9 /* MovieInfoView.swift in Sources */,
+				FA7EAEA12509508500963090 /* OrderTicketViewController.swift in Sources */,
 				FA7EAE9B25094E1000963090 /* Ticket.swift in Sources */,
 				FAD819CB2486785D003E811A /* ScreenshotCell.swift in Sources */,
 				FAA41081247EAAA30039C4D9 /* AppDelegate.swift in Sources */,
+				FA7EAEA82509545100963090 /* PageNavigator.swift in Sources */,
 				FAA4109E247F0FF30039C4D9 /* MovieService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
