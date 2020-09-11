@@ -35,7 +35,6 @@ class FilmsGalleryViewController: UIViewController {
     private lazy var topScreensSlider: UICollectionView = {
         let view = UICollectionView.init(frame: .zero, collectionViewLayout: topScreensLayout)
         view.register(ScreenshotCell.self, forCellWithReuseIdentifier: ScreenshotCell.reusaId)
-//        view.setCollectionViewLayout(topScreensLayout, animated: true)
         view.dataSource = self
         view.backgroundColor = .clear
         view.alpha = 0
